@@ -1,12 +1,20 @@
 # Nougat-GUI
-GUI for the basic use of Facebook's [Nougat](https://github.com/facebookresearch/nougat). 
-It basically uses OCR and AI to convert academic PDFs (like those published at Arxiv.org) into a type of text file called markdown, rendering any tables or math formulas in Mathpix Markdown-compatible format.
 
-## To run:
-- Install python.
-- `python NougatGUI.py`
-- If you don't have nougat installed, **it should install Nougat for you** the first time you run it.
-- Nougat works faster with PyTorch: if you have a CUDA-enabled GPU, click on the link the app shows at the top to go to the PyTorch download page.
-- Select Markdown compatibility checkbox if you want your output file to be in markdown style. The .mmd file generated can be treated like a regular markdown file: open it with any app that reads text.
-- Select "Recompute" if there was an error while working on the same file and you want to start over from the beginning.
-- To get more familiar, visit the [Nougat](https://github.com/facebookresearch/nougat) page.
+A user-friendly GUI for [Nougat](https://github.com/facebookresearch/nougat), a tool by Facebook Research for converting academic PDFs into markdown files.
+
+<img src="https://github.com/sm18lr88/Nougat-GUI/blob/main/NougatGUI-picture.jpg" width="350">
+
+## Features
+- **OCR & AI**: Converts academic PDFs into markdown. Still a work in development.
+- **Markdown Compatibility**: Renders tables and formulas in Mathpix Markdown format.
+- **Self-installs and self-updates Nougat**: Don't worry about installing or updating Nougat yourself. This app takes care of that everyt time you run it.
+
+## How to Use
+1. **Installation**: Install Python.
+2. **Run**: Open terminal and run `python NougatGUI.py`.
+3. **Nougat Installation**: If Nougat is not installed, the app will handle it.
+4. **Optimization**: For faster performance, install PyTorch. Click the link in the app to visit the install page for PyTorch.
+5. **Output**: Choose markdown compatibility for .mmd files, which you can open as a regular .md or .txt file.
+6. **Error Handling**: Use "Recompute" to restart the process if needed.
+
+Learn more about [Nougat](https://github.com/facebookresearch/nougat).
