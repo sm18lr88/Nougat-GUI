@@ -2,8 +2,13 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 import subprocess
-import pkg_resources
 import webbrowser
+# Self-upgrade functionality
+import os
+try:
+    os.system("pip install --upgrade nougat-ocr")
+except Exception as e:
+    print(f"Self-upgrade failed: {e}")
 
 # Function to open PyTorch download page
 def open_pytorch_link(event):
