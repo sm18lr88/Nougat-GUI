@@ -66,7 +66,7 @@ root.title("Nougat PDF Converter")
 frame = ttk.Frame(root, padding="10")
 frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-pytorch_label = tk.Label(root, text="GPU acceleration requires PyTorch", fg="blue", cursor="hand2")
+pytorch_label = tk.Label(root, text="Install PyTorch to improve performance", fg="blue", cursor="hand2")
 pytorch_label.grid(row=0, column=0, sticky=tk.W)
 pytorch_label.bind("<Button-1>", open_pytorch_link)
 
