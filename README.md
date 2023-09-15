@@ -7,7 +7,7 @@ A user-friendly GUI for [Nougat](https://github.com/facebookresearch/nougat), a 
 ## Features
 - **OCR & AI**: Converts academic PDFs into markdown. Still a work in development.
 - **Markdown Compatibility**: Renders tables and formulas in Mathpix Markdown format.
-- **Self-installs and self-updates Nougat**: Don't worry about installing or updating Nougat yourself. This app takes care of that everyt time you run it.
+- **Self-installs and self-updates Nougat**: Don't worry about installing or updating Nougat yourself. This app takes care of that everyt time you run it. *This function makes the GUI slow-ish to start, but the goal is user friendliness.*
 
 ## How to Use
 1. **Installation**: Install Python.
