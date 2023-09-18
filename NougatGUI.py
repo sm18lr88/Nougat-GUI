@@ -3,18 +3,11 @@ from tkinter import ttk
 from tkinter import filedialog
 import subprocess
 import webbrowser
-# Self-upgrade functionality
+import urllib.request
 import os
-try:
-    os.system("pip install --upgrade nougat-ocr")
-except Exception as e:
-    print(f"Self-upgrade failed: {e}")
+import sys
 
-# Function to open PyTorch download page
-def open_pytorch_link(event):
-    webbrowser.open_new("https://pytorch.org/get-started/locally/")
-
-# Function to install Nougat if not installed
+# Function to self-install Nougat if not installed
 def install_nougat():
     try:
         subprocess.run(["pip", "show", "nougat-ocr"], check=True, stdout=subprocess.PIPE)
@@ -22,10 +15,36 @@ def install_nougat():
         subprocess.run(["pip", "install", "--upgrade", "fastapi"])
         subprocess.run(["pip", "install", "nougat-ocr"])
 
+# Function to update Nougat and the GUI app
+def update_app():
+    try:
+        # Update Nougat
+        subprocess.run(["pip", "install", "--upgrade", "nougat-ocr"], check=True, stdout=subprocess.PIPE)
+        
+        # Download the latest version of NougatGUI.py from GitHub
+        nougat_gui_url = 'https://raw.githubusercontent.com/sm18lr88/Nougat-GUI/main/NougatGUI.py'
+        script_path = os.path.abspath(__file__)  # Get the path of the running script
+        urllib.request.urlretrieve(nougat_gui_url, script_path)
+        
+        # Restart the application
+        os.execv(sys.executable, ['python'] + sys.argv)
+    except Exception as e:
+        print(f"Update failed: {e}")
+
+# Function to open PyTorch download page
+def open_pytorch_link(event):
+    webbrowser.open_new("https://pytorch.org/get-started/locally/")
+
+# Function to check if PyTorch is installed
+def is_pytorch_installed():
+    try:
+        subprocess.run(["pip", "show", "torch"], check=True, stdout=subprocess.PIPE)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
 # Function to browse PDF files
 def browse_pdf():
-    # ... (rest of the code remains unchanged)
-
     file_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
     pdf_entry.delete(0, tk.END)
     pdf_entry.insert(0, file_path)
@@ -51,12 +70,6 @@ def run_nougat():
     
     subprocess.run(cmd, shell=True)
 
-    create_index_cmd = ["python", "-m", "nougat.dataset.create_index", "--dir", f"{output_dir}/path/paired/output", "--out", "index.jsonl"]
-    subprocess.run(create_index_cmd, shell=True)
-
-    gen_seek_cmd = ["python", "-m", "nougat.dataset.gen_seek", "file.jsonl"]
-    subprocess.run(gen_seek_cmd, shell=True)
-
 # Main GUI
 install_nougat()
 
@@ -66,9 +79,13 @@ root.title("Nougat PDF Converter")
 frame = ttk.Frame(root, padding="10")
 frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-pytorch_label = tk.Label(root, text="Install PyTorch to improve performance", fg="blue", cursor="hand2")
-pytorch_label.grid(row=0, column=0, sticky=tk.W)
-pytorch_label.bind("<Button-1>", open_pytorch_link)
+if not is_pytorch_installed():
+    pytorch_label = tk.Label(root, text="Install PyTorch to improve performance", fg="blue", cursor="hand2")
+    pytorch_label.grid(row=0, column=0, sticky=tk.W)
+    pytorch_label.bind("<Button-1>", open_pytorch_link)
+    ttk.Button(root, text="Update", command=update_app).grid(row=1, column=0, sticky=tk.W)
+else:
+    ttk.Button(root, text="Update", command=update_app).grid(row=0, column=0, sticky=tk.W)
 
 ttk.Label(frame, text="PDF File:").grid(row=0, column=0, sticky=tk.W)
 pdf_entry = ttk.Entry(frame, width=40)
